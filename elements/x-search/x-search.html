@@ -1,0 +1,74 @@
+<polymer-element name="x-slides" attributes="markdown, current">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+      }
+      x-slide {
+        display: none;
+      }
+      x-slide[visible] {
+        display: block;
+      }
+
+      .control {
+        position: absolute;
+        padding: 20px 10px;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255,255,255,1);
+        top: 50%;
+        margin-top: -30px;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+        color: #555;
+      }
+      .control:hover {
+        color: #333;
+      }
+      .control.prev {
+        left: 20px;
+      }
+      .control.next {
+        right: 20px;
+      }
+    </style>
+
+    <template repeat="{{ content, i in contents }}">
+      <x-slide markdown="{{ content }}" index="{{ i }}" 
+        visible?="{{ i == current || (i == contents.length-1 && current >= contents.length) }}"></x-slide>
+    </template>
+    <div id="controls">
+      <div class="control prev" on-click="{{ prev }}">prev</div>
+      <div class="control next" on-click="{{ next }}">next</div>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-slides', {
+
+      current: 0,
+
+      contents: [],
+
+      ready: function () {},
+
+      markdownChanged: function () {
+        this.contents = this.markdown.split('- - -');
+      },
+
+      prev: function () {
+        this.current = this.current > 0 ? this.current-1 : this.contents.length-1;
+      },
+
+      next: function () {
+        this.current = this.current < this.contents.length-1 ? this.current+1 : 0;
+      }
+
+    });
+  </script>
+</polymer-element>
