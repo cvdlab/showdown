@@ -1,4 +1,4 @@
-<polymer-element name="x-slides" attributes="markdown, current">
+<polymer-element name="x-controls">
   <template>
     <style>
       :host {
@@ -38,10 +38,6 @@
       }
     </style>
 
-    <template repeat="{{ content, i in contents }}">
-      <x-slide markdown="{{ content }}" index="{{ i }}" 
-        visible?="{{ i == current || (i == contents.length-1 && current >= contents.length) }}"></x-slide>
-    </template>
     <div id="controls">
       <div class="control prev" on-click="{{ prev }}">prev</div>
       <div class="control next" on-click="{{ next }}">next</div>
@@ -49,24 +45,14 @@
 
   </template>
   <script>
-    Polymer('x-slides', {
-
-      current: 0,
-
-      contents: [],
-
-      ready: function () {},
-
-      markdownChanged: function () {
-        this.contents = this.markdown.split('- - -');
-      },
+    Polymer('x-controls', {
 
       prev: function () {
-        this.current = this.current > 0 ? this.current-1 : this.contents.length-1;
+        this.emit('prev');
       },
 
       next: function () {
-        this.current = this.current < this.contents.length-1 ? this.current+1 : 0;
+        this.emit('next');
       }
 
     });
