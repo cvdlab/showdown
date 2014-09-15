@@ -66,6 +66,10 @@
         console.log(this.markdown)
       },
 
+      goto: function (i) {
+        this.current = i < 0 ? 0 : (i > this.contents.length ? this.contents.length-1 : i);
+      },
+
       prev: function () {
         this.current = this.current > 0 ? this.current-1 : this.contents.length-1;
       },
