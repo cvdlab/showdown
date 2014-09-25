@@ -15,29 +15,6 @@
       x-slide[visible] {
         display: block;
       }
-
-      .control {
-        position: absolute;
-        padding: 20px 10px;
-        width: 60px;
-        height: 60px;
-        background-color: rgba(255,255,255,1);
-        top: 50%;
-        margin-top: -30px;
-        text-transform: uppercase;
-        font-weight: 600;
-        cursor: pointer;
-        color: #555;
-      }
-      .control:hover {
-        color: #333;
-      }
-      .control.prev {
-        left: 20px;
-      }
-      .control.next {
-        right: 20px;
-      }
     </style>
 
     <template repeat="{{ content, i in contents }}">
@@ -66,12 +43,20 @@
         this.current = i < 0 ? 0 : (i > this.contents.length ? this.contents.length-1 : i);
       },
 
-      prev: function () {
+      goto_prev: function () {
         this.current = this.current > 0 ? this.current-1 : this.contents.length-1;
       },
 
-      next: function () {
+      goto_next: function () {
         this.current = this.current < this.contents.length-1 ? this.current+1 : 0;
+      },
+
+      goto_first: function () {
+        this.current = 0;
+      },
+
+      goto_last: function () {
+        this.current = this.contents.length-1;
       }
 
     });

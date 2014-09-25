@@ -5,22 +5,28 @@
         display: block;
       }
 
-      .control {
-        position: absolute;
-        padding: 20px 10px;
+      #counter {
+        padding: 20px 0px;
+        text-align: center;
         width: 60px;
         height: 60px;
         background-color: rgba(255,255,255,1);
-        bottom: 20px;
-        right: 20px;
         text-transform: uppercase;
         font-weight: 600;
         cursor: pointer;
         color: #555;
       }
+
+      .control.separator:before {
+        content: '/';
+      }
     </style>
 
-    <div class="control">{{ slides.current + 1}} / {{ slides.contents.length }}</div>
+    <div id="counter">
+      <span class="control current">{{ slides.current + 1}}</span>
+      <span class="control separator"></span>
+      <span class="control total">{{ slides.contents.length }}</span>
+    </div>
 
   </template>
   <script>
