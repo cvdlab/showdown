@@ -44,10 +44,7 @@
       <x-slide markdown="{{ content }}" index="{{ i }}" 
         visible?="{{ i == current || (i == contents.length-1 && current >= contents.length) }}"></x-slide>
     </template>
-    <div id="controls">
-      <div class="control prev" on-click="{{ prev }}">prev</div>
-      <div class="control next" on-click="{{ next }}">next</div>
-    </div>
+    <content select="[plugin]"></content>
 
   </template>
   <script>
@@ -63,7 +60,6 @@
 
       markdownChanged: function () {
         this.contents = this.markdown.split(this.delimiter);
-        console.log(this.markdown)
       },
 
       goto: function (i) {

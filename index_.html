@@ -21,11 +21,23 @@
   <script src="bower_components/superagent/superagent.js"></script>
   <link rel="import" href="bower_components/polymer/polymer.html">
   <link rel="import" href="elements/x-slides/x-slides.html">
+  <link rel="import" href="elements/x-controls/x-controls.html">
+  <link rel="import" href="elements/x-counter/x-counter.html">
 </head>
 <body unresolved>
   <div id="app">
-    <x-slides id="slides"></x-slides>
+    <x-slides id="slides">
+      <x-controls id="controls" plugin></x-controls>
+      <x-counter id="counter" plugin></x-counter>
+    </x-slides>
   </div>
   <script src="scripts/index.js"></script>
+  <script>
+    var slides = document.getElementById('slides');
+    var plugins = document.querySelectorAll('[plugin]').array();
+    plugins.forEach(function (plugin) {
+      plugin.slides = slides;
+    });
+  </script>
 </body>
 </html>
