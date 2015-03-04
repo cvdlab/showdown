@@ -5,7 +5,7 @@
   var md = qs.md;
 
   if (!md) {
-    md = 'https://github.com/cvdlab/showdown/blob/master/README.md';
+    md = 'README.md';
     // return;
   }
   

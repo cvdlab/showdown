@@ -23,6 +23,10 @@ h1 {
   font-size: 10vh;
 }
 
+p {
+  font-size: 4vh;
+}
+
 x-counter {
   position: fixed;
   bottom: 20px;

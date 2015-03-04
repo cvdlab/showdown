@@ -22,3 +22,7 @@ html /deep/ body {
 html /deep/ h1 {
   font-size: 10vh;
 }
+
+html /deep/ p {
+  font-size: 4vh;
+}
