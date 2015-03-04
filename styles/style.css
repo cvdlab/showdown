@@ -1,0 +1,37 @@
+html {
+  box-sizing: border-box;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: relative;
+  min-height: 100%;
+}
+
+*, 
+*:before, 
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333;
+  margin: 0px;
+  padding: 0px;
+  transition: none;
+}
+
+h1 {
+  font-size: 10vh;
+}
+
+x-counter {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+x-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  margin-left: -120px; 
+}

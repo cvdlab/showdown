@@ -1,25 +1,27 @@
-var slides = document.getElementById('slides');
+(function () {
+  var slides = document.querySelector('x-slides');
 
-var start = function () {
   var qs = queryString.parse(location.search);
   var md = qs.md;
 
   if (!md) {
-    return;
+    md = 'https://github.com/cvdlab/showdown/blob/master/README.md';
+    // return;
   }
   
-  md = md.replace('github.com/', 'cdn.rawgit.com/')
-    .replace('/blob/', '/')
+  md = md.replace('github.com/', 'cdn.rawgit.com/').replace('/blob/', '/');
 
-  superagent
-    .get(md)
-    .end(function (res) {
-      window.res = res;
-      if (res.ok) {
-        console.log(res.text)
-        slides.markdown = res.text;
-      }
-    });
-};
+  superagent.get(md).end(function (res) {
+    if (!res.ok) {
+      console.error(res);
+      return;
+    }
+    slides.markdown = res.text;
+  });
 
-start();
+  var plugins = slides.querySelectorAll('[plugin]').array();
+  plugins.forEach(function (plugin) {
+    plugin.slides = slides;
+  });
+
+}());
