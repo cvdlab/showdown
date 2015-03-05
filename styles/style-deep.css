@@ -13,7 +13,7 @@ html /deep/ *:after {
 
 html /deep/ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 4vh;
+  font-size: 3vh;
   color: #333;
   margin: 0px;
   padding: 0px;
@@ -36,6 +36,6 @@ html /deep/ h6 {
 }
 
 html /deep/ pre {
-  font-size: 3vh;
+  font-size: 2vh;
   border: none;
 }

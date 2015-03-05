@@ -11,7 +11,7 @@
         background-color: rgba(255,255,255,1);
         text-transform: uppercase;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 2vh;
         cursor: pointer;
         color: #555;
         float: left;
@@ -22,10 +22,10 @@
     </style>
 
     <div id="controls">
-      <div class="control first" on-click="{{ goto_first }}">first</div>
-      <div class="control prev" on-click="{{ goto_prev }}">prev</div>
-      <div class="control next" on-click="{{ goto_next }}">next</div>
-      <div class="control next" on-click="{{ goto_last }}">last</div>
+      <div class="control first" on-click="{{ goto_first }}">&lt;&lt;</div>
+      <div class="control prev" on-click="{{ goto_prev }}">&lt;</div>
+      <div class="control next" on-click="{{ goto_next }}">&gt;</div>
+      <div class="control next" on-click="{{ goto_last }}">&gt;&gt;</div>
     </div>
 
   </template>
