@@ -6,10 +6,9 @@
 
   if (!md) {
     md = 'README.md';
-    // return;
   }
-  
-  md = md.replace('github.com/', 'cdn.rawgit.com/').replace('/blob/', '/');
+
+  md = md.replace('github.com/', 'rawgit.com/').replace('/blob/', '/');
 
   superagent.get(md).end(function (res) {
     if (!res.ok) {
