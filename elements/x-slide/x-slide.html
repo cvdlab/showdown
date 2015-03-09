@@ -8,7 +8,7 @@
     }
   });
 </script>
-<polymer-element name="x-slide" attributes="markdown">
+<polymer-element name="x-slide" attributes="markdown fontsizes">
   <template>
     <style>
       :host {
@@ -17,14 +17,24 @@
         height: 100%;
         padding: 20px 80px;
       }
+
+      #slide { font-size: {{ fontsizes.body }}vh; }
+      #slide h1 { font-size: {{ fontsizes.h1 }}vh; }
+      #slide h2 { font-size: {{ fontsizes.h2 }}vh; }
+      #slide h3 { font-size: {{fontsizes.h3 }}vh; }
+      #slide h4, 
+      #slide h5, 
+      #slide h6 { font-size: {{ fontsizes.h4_h5_h6 }}vh; }
+      #slide pre { font-size: {{ fontsizes.pre }}vh; }
+
     </style>
 
-    <div id="slide"></div>    
+    <div id="slide"></div>
 
   </template>
   <script>
     Polymer('x-slide', {
-      
+
       ready: function () {},
 
       markdownChanged: function () {

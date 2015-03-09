@@ -13,7 +13,7 @@ html {
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 3vh;
+  /*font-size: 3vh;*/
   color: #333;
   margin: 0px;
   padding: 0px;
@@ -21,22 +21,22 @@ body {
 }
 
 h1 {
-  font-size: 8vh;
+  /*font-size: 8vh;*/
 }
 h2 {
-  font-size: 6vh;
+  /*font-size: 6vh;*/
 }
 h3 {
-  font-size: 4vh;
+  /*font-size: 4vh;*/
 }
 h4,
 h5, 
 h6 {
-  font-size: 3vh;
+  /*font-size: 3vh;*/
 }
 
 pre {
-  font-size: 2vh;
+  /*font-size: 2vh;*/
   border: none;
 }
 
@@ -51,4 +51,10 @@ x-controls {
   bottom: 0px;
   left: 50%;
   margin-left: -120px; 
+}
+
+x-fontsize {
+  position: fixed;
+  top: 0;
+  right: 0;
 }

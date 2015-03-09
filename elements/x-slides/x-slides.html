@@ -18,7 +18,7 @@
       
     <div id="slides">
       <template repeat="{{ content, i in contents }}">
-        <x-slide markdown="{{ content }}" index="{{ i }}" 
+        <x-slide fontsizes="{{ fontsizes }}" markdown="{{ content }}" index="{{ i }}" 
           visible?="{{ [i, current] | visible }}"></x-slide>
       </template>
       <content select="[plugin]"></content>
@@ -33,6 +33,17 @@
       delimiter: /- - -|---/gi,
 
       contents: [],
+
+      fontsize_step: 0.4,
+
+      fontsizes: {
+        body: 4,
+        h1: 8,
+        h2: 7,
+        h3: 5,
+        h4_h5_h6: 4,
+        pre: 3
+      },
 
       ready: function () {
         var plugins = this.querySelectorAll('[plugin]').array();
@@ -73,6 +84,22 @@
 
       goto_last: function () {
         this.current = this.contents.length-1;
+      },
+
+      decrease_fontsize: function () {
+        var fontsizes = this.fontsizes;
+        var key;
+        for (key in fontsizes) {
+          fontsizes[key] -= this.fontsize_step;
+        }
+      }
+      ,
+      increase_fontsize: function () {
+        var fontsizes = this.fontsizes;
+        var key;
+        for (key in fontsizes) {
+          fontsizes[key] += this.fontsize_step;
+        }
       }
 
     });
