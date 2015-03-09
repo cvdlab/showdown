@@ -42,13 +42,13 @@ pre {
 
 x-counter {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 0px;
+  right: 0px;
 }
 
 x-controls {
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   left: 50%;
   margin-left: -120px; 
 }
