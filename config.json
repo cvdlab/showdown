@@ -1,6 +1,0 @@
-{
-  "input": "_index.html",
-  "output": "index.html",
-  "strip": true,
-  "inline": true
-}
