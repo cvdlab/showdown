@@ -18,19 +18,24 @@
   <link rel="stylesheet" href="styles/style-deep.css">
   <script src="components/webcomponentsjs/webcomponents.js"></script>
   <script src="components/query-string/query-string.js"></script>
-  <script src="components/superagent/superagent.js"></script>
   <link rel="import" href="components/polymer/polymer.html">
   <link rel="import" href="elements/x-slides/x-slides.html">
   <link rel="import" href="elements/x-controls/x-controls.html">
   <link rel="import" href="elements/x-counter/x-counter.html">
-  <link rel="import" href="elements/x-keyboard/x-keyboard.html">
+  <link rel="import" href="elements/x-keys/x-keys.html">
+  <link rel="import" href="elements/x-source-github/x-source-github.html">  
 </head>
 <body>
   <x-slides id="slides">
-    <x-controls id="controls" plugin></x-controls>
-    <x-counter id="counter" plugin></x-counter>
-    <x-keyboard id="keyboard" plugin></x-keyboard>
+    <x-controls plugin id="controls"></x-controls>
+    <x-counter plugin id="counter"></x-counter>
+    <x-source-github plugin id="source"></x-source-github>
+    <x-keys plugin id="keys"></x-keys>
   </x-slides>
-  <script src="scripts/index.js"></script>
+  <script>
+    var source = document.getElementById('source');
+    var qs = queryString.parse(location.search);
+    source.url = qs.md;
+  </script>
 </body>
 </html>

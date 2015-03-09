@@ -15,12 +15,14 @@
         display: block;
       }
     </style>
-
-    <template repeat="{{ content, i in contents }}">
-      <x-slide markdown="{{ content }}" index="{{ i }}" 
-        visible?="{{ [i, current] | visible }}"></x-slide>
-    </template>
-    <content select="[plugin]"></content>
+      
+    <div id="slides">
+      <template repeat="{{ content, i in contents }}">
+        <x-slide markdown="{{ content }}" index="{{ i }}" 
+          visible?="{{ [i, current] | visible }}"></x-slide>
+      </template>
+      <content select="[plugin]"></content>
+    </div>
 
   </template>
   <script>
@@ -32,7 +34,13 @@
 
       contents: [],
 
-      ready: function () {},
+      ready: function () {
+        var plugins = this.querySelectorAll('[plugin]').array();
+        plugins.forEach(function (plugin) {
+          plugin.slides = this;
+          plugin.container = this.$.slides;
+        }, this);
+      },
 
       markdownChanged: function () {
         this.contents = this.markdown.split(this.delimiter);
