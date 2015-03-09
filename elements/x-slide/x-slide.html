@@ -1,4 +1,13 @@
 <script src="../../components/marked/lib/marked.js"></script>
+<link rel="stylesheet" href="highlight.css">
+<script src="highlight.js"></script>
+<script>
+  marked.setOptions({
+    highlight: function (code) {
+      return hljs.highlightAuto(code).value;
+    }
+  });
+</script>
 <polymer-element name="x-slide" attributes="markdown">
   <template>
     <style>
