@@ -1,0 +1,124 @@
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+html /deep/ .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+  -webkit-text-size-adjust: none;
+}
+
+html /deep/ .hljs-comment,
+html /deep/ .diff .hljs-header,
+html /deep/ .hljs-javadoc {
+  color: #998;
+  font-style: italic;
+}
+
+html /deep/ .hljs-keyword,
+html /deep/ .css .rule .hljs-keyword,
+html /deep/ .hljs-winutils,
+html /deep/ .nginx .hljs-title,
+html /deep/ .hljs-subst,
+html /deep/ .hljs-request,
+html /deep/ .hljs-status {
+  color: #333;
+  font-weight: bold;
+}
+
+html /deep/ .hljs-number,
+html /deep/ .hljs-hexcolor,
+html /deep/ .ruby .hljs-constant {
+  color: #008080;
+}
+
+html /deep/ .hljs-string,
+html /deep/ .hljs-tag .hljs-value,
+html /deep/ .hljs-phpdoc,
+html /deep/ .hljs-dartdoc,
+html /deep/ .tex .hljs-formula {
+  color: #d14;
+}
+
+html /deep/ .hljs-title,
+html /deep/ .hljs-id,
+html /deep/ .scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold;
+}
+
+html /deep/ .hljs-list .hljs-keyword,
+html /deep/ .hljs-subst {
+  font-weight: normal;
+}
+
+html /deep/ .hljs-class .hljs-title,
+html /deep/ .hljs-type,
+html /deep/ .vhdl .hljs-literal,
+html /deep/ .tex .hljs-command {
+  color: #458;
+  font-weight: bold;
+}
+
+html /deep/ .hljs-tag,
+html /deep/ .hljs-tag .hljs-title,
+html /deep/ .hljs-rules .hljs-property,
+html /deep/ .django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal;
+}
+
+html /deep/ .hljs-attribute,
+html /deep/ .hljs-variable,
+html /deep/ .lisp .hljs-body {
+  color: #008080;
+}
+
+html /deep/ .hljs-regexp {
+  color: #009926;
+}
+
+html /deep/ .hljs-symbol,
+html /deep/ .ruby .hljs-symbol .hljs-string,
+html /deep/ .lisp .hljs-keyword,
+html /deep/ .clojure .hljs-keyword,
+html /deep/ .scheme .hljs-keyword,
+html /deep/ .tex .hljs-special,
+html /deep/ .hljs-prompt {
+  color: #990073;
+}
+
+html /deep/ .hljs-built_in {
+  color: #0086b3;
+}
+
+html /deep/ .hljs-preprocessor,
+html /deep/ .hljs-pragma,
+html /deep/ .hljs-pi,
+html /deep/ .hljs-doctype,
+html /deep/ .hljs-shebang,
+html /deep/ .hljs-cdata {
+  color: #999;
+  font-weight: bold;
+}
+
+html /deep/ .hljs-deletion {
+  background: #fdd;
+}
+
+html /deep/ .hljs-addition {
+  background: #dfd;
+}
+
+html /deep/ .diff .hljs-change {
+  background: #0086b3;
+}
+
+html /deep/ .hljs-chunk {
+  color: #aaa;
+}
