@@ -1,0 +1,38 @@
+<polymer-element name="x-counter">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      #counter {
+        padding: 20px 0px;
+        text-align: center;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255,255,255,1);
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: 2vh;
+        cursor: pointer;
+        color: #555;
+      }
+
+      .control.separator:before {
+        content: '/';
+      }
+    </style>
+
+    <div id="counter">
+      <span class="control current">{{ slides.current + 1}}</span>
+      <span class="control separator"></span>
+      <span class="control total">{{ slides.contents.length }}</span>
+    </div>
+
+  </template>
+  <script>
+    Polymer('x-counter', {
+
+    });
+  </script>
+</polymer-element>

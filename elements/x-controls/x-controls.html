@@ -3,56 +3,56 @@
     <style>
       :host {
         display: block;
-        width: 100%;
-        height: 100%;
-        padding: 20px;
       }
-      x-slide {
-        display: none;
+      #controls {
+        opacity: 0;
       }
-      x-slide[visible] {
-        display: block;
+      #controls:hover {
+        opacity: 1;
       }
-
       .control {
-        position: absolute;
         padding: 20px 10px;
         width: 60px;
         height: 60px;
-        background-color: rgba(255,255,255,1);
-        top: 50%;
-        margin-top: -30px;
+        background-color: rgba(255,255,255,0);
         text-transform: uppercase;
+        text-align: center;
         font-weight: 600;
+        font-size: 2vh;
         cursor: pointer;
         color: #555;
+        float: left;
       }
       .control:hover {
         color: #333;
       }
-      .control.prev {
-        left: 20px;
-      }
-      .control.next {
-        right: 20px;
-      }
     </style>
 
     <div id="controls">
-      <div class="control prev" on-click="{{ prev }}">prev</div>
-      <div class="control next" on-click="{{ next }}">next</div>
+      <div class="control first" on-click="{{ goto_first }}">&lt;&lt;</div>
+      <div class="control prev" on-click="{{ goto_prev }}">&lt;</div>
+      <div class="control next" on-click="{{ goto_next }}">&gt;</div>
+      <div class="control next" on-click="{{ goto_last }}">&gt;&gt;</div>
     </div>
 
   </template>
   <script>
     Polymer('x-controls', {
 
-      prev: function () {
-        this.emit('prev');
+      goto_prev: function () {
+        this.slides.goto_prev();
       },
 
-      next: function () {
-        this.emit('next');
+      goto_next: function () {
+        this.slides.goto_next();
+      },
+
+      goto_first: function () {
+        this.slides.goto_first();
+      },
+
+      goto_last: function () {
+        this.slides.goto_last();
       }
 
     });

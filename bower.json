@@ -1,11 +1,14 @@
 {
   "name": "showdown",
   "version": "0.0.1",
+  "version": "0.1.0",
   "dependencies": {
-    "polymer": "polymer/polymer#master",
+    "polymer": "Polymer/polymer#~0.5.5",
     "marked": "chjj/marked",
     "query-string": "sindresorhus/query-string",
-    "superagent": "visionmedia/superagent"
+    "x-bootstrap": "x-element/x-bootstrap",
+    "core-a11y-keys": "Polymer/core-a11y-keys#~0.5.5",
+    "core-ajax": "Polymer/core-ajax#~0.5.5"
   },
   "devDependencies": {}
 }

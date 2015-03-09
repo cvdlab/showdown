@@ -1,0 +1,36 @@
+<link rel="import" href="../../components/core-a11y-keys/core-a11y-keys.html">
+<polymer-element name="x-keys">
+  <template>
+
+    <core-a11y-keys target="{{ document }}" keys="left" on-keys-pressed="{{ goto_prev }}"></core-a11y-keys>
+    <core-a11y-keys target="{{ document }}" keys="right" on-keys-pressed="{{ goto_next }}"></core-a11y-keys>
+    <core-a11y-keys target="{{ document }}" keys="shift+left" on-keys-pressed="{{ goto_first }}"></core-a11y-keys>
+    <core-a11y-keys target="{{ document }}" keys="shift+right" on-keys-pressed="{{ goto_last }}"></core-a11y-keys>
+    
+  </template>
+  <script>
+    Polymer('x-keys', {
+
+      ready: function () {
+        this.document = window.document;
+      },
+
+      goto_prev: function () {
+        this.slides.goto_prev();
+      },
+
+      goto_next: function () {
+        this.slides.goto_next();
+      },
+
+      goto_first: function () {
+        this.slides.goto_first();
+      },
+
+      goto_last: function () {
+        this.slides.goto_last();
+      }
+
+    });
+  </script>
+</polymer-element>
