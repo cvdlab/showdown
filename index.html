@@ -15,19 +15,17 @@
 <body>
 
   <template id="template" is="dom-bind">
-    <x-github source="{{source}}" markdown="{{markdown}}"></x-github>
+    <x-github source="{{source}}" markdown="{{md}}"></x-github>
 
-    <x-slides markdown="{{markdown}}"
-      count="{{count}}" current="{{current}}" selected="{{selected}}">
-    </x-slides>
+    <x-slides markdown="{{md}}" count="{{count}}" current="{{current}}"></x-slides>
 
-    <x-pager current="{{current}}" selected="{{selected}}"></x-pager>
+    <x-pager count="{{count}}" current="{{current}}"></x-pager>
 
     <x-counter count="{{count}}" current="{{current}}"></x-counter>
 
-    <x-controls count="{{count}}" current="{{current}}" selected="{{selected}}"></x-controls>
+    <x-controls count="{{count}}" current="{{current}}"></x-controls>
 
-    <x-keys count="{{count}}" current="{{current}}" selected="{{selected}}"></x-keys>
+    <x-keys count="{{count}}" current="{{current}}"></x-keys>
   </template>
 
   <script>
