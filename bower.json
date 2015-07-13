@@ -1,14 +1,12 @@
 {
   "name": "showdown",
-  "version": "0.0.1",
-  "version": "0.1.0",
+  "version": "0.7.0",
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.5",
-    "marked": "chjj/marked",
-    "query-string": "sindresorhus/query-string",
-    "x-bootstrap": "x-element/x-bootstrap",
-    "core-a11y-keys": "Polymer/core-a11y-keys#~0.5.5",
-    "core-ajax": "Polymer/core-ajax#~0.5.5"
+    "polymer": "Polymer/polymer#^1.0",
+    "iron-ajax": "PolymerElements/iron-ajax#^1.0",
+    "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0",
+    "markdown-it": "markdown-it/markdown-it#^4.3",
+    "query-string": "sindresorhus/query-string"
   },
   "devDependencies": {}
 }

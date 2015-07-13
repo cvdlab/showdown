@@ -1,60 +1,65 @@
-<polymer-element name="x-controls">
+<link rel="import" href="../../components/polymer/polymer.html">
+<dom-module name="x-controls">
+  <style>
+    :host {
+      display: block;
+    }
+    .controls {
+      position: absolute;
+      width: 200px;
+      bottom: 0;
+      left: 50%;
+      margin-left: -100px;
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-      #controls {
-        opacity: 0;
-      }
-      #controls:hover {
-        opacity: 1;
-      }
-      .control {
-        padding: 20px 10px;
-        width: 60px;
-        height: 60px;
-        background-color: rgba(255,255,255,0);
-        text-transform: uppercase;
-        text-align: center;
-        font-weight: 600;
-        font-size: 2vh;
-        cursor: pointer;
-        color: #555;
-        float: left;
-      }
-      .control:hover {
-        color: #333;
-      }
-    </style>
 
-    <div id="controls">
-      <div class="control first" on-click="{{ goto_first }}">&lt;&lt;</div>
-      <div class="control prev" on-click="{{ goto_prev }}">&lt;</div>
-      <div class="control next" on-click="{{ goto_next }}">&gt;</div>
-      <div class="control next" on-click="{{ goto_last }}">&gt;&gt;</div>
+    <div class="controls">
+      <a class="control" on-click="goto_first">&lt;&lt;</a>
+      <a class="control" on-click="goto_prev">&lt;</a>
+      <a class="control" on-click="goto_next">&gt;</a>
+      <a class="control" on-click="goto_last">&gt;&gt;</a>
     </div>
 
   </template>
-  <script>
-    Polymer('x-controls', {
+</dom-module>
+<script>
+  Polymer({
 
-      goto_prev: function () {
-        this.slides.goto_prev();
+    is: 'x-controls',
+
+    properties: {
+      count: {
+        type: Number
       },
-
-      goto_next: function () {
-        this.slides.goto_next();
+      current: {
+        type: Number
       },
-
-      goto_first: function () {
-        this.slides.goto_first();
-      },
-
-      goto_last: function () {
-        this.slides.goto_last();
+      selected: {
+        type: Number,
+        notify: true
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    attached: function () {
+      this.document = window.document;
+    },
+
+    goto_prev: function () {
+      this.selected = this.current > 0 ? this.current-1 : this.count-1;
+    },
+
+    goto_next: function () {
+      this.selected = this.current < this.count-1 ? this.current+1 : 0;
+    },
+
+    goto_first: function () {
+      this.selected = 0;
+    },
+
+    goto_last: function () {
+      this.selected = this.count-1;
+    }
+
+  });
+</script>

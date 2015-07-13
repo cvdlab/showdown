@@ -1,47 +1,46 @@
-<script src="../../components/marked/lib/marked.js"></script>
-<link rel="stylesheet" href="highlight.css">
-<script src="highlight.js"></script>
-<script>
-  marked.setOptions({
-    highlight: function (code) {
-      return hljs.highlightAuto(code).value;
+<link rel="import" href="../../components/polymer/polymer.html">
+<dom-module id="x-slide">
+  <style>
+    :host {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
-  });
-</script>
-<polymer-element name="x-slide" attributes="markdown fontsizes">
+
+    #slide {
+      @apply(--layout-fit);
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-        width: 100%;
-        height: 100%;
-        padding: 20px 80px;
-      }
-
-      #slide { font-size: {{ fontsizes.body }}vh; }
-      #slide h1 { font-size: {{ fontsizes.h1 }}vh; }
-      #slide h2 { font-size: {{ fontsizes.h2 }}vh; }
-      #slide h3 { font-size: {{fontsizes.h3 }}vh; }
-      #slide h4, 
-      #slide h5, 
-      #slide h6 { font-size: {{ fontsizes.h4_h5_h6 }}vh; }
-      #slide pre { font-size: {{ fontsizes.pre }}vh; }
-
-    </style>
 
     <div id="slide"></div>
 
   </template>
-  <script>
-    Polymer('x-slide', {
+</dom-module>
+<script src="../../components/markdown-it/dist/markdown-it.js"></script>
+<script>
+  Polymer({
 
-      ready: function () {},
+    is: 'x-slide',
 
-      markdownChanged: function () {
-        this.content = marked(this.markdown);
-        this.$.slide.innerHTML = this.content;
+    properies: {
+      markdown: {
+        type: String
+      },
+      html: {
+        type: String
       }
+    },
 
-    });
-  </script>
-</polymer-element>
+    observers: [
+      'on_change_markdown(markdown)'
+    ],
+
+    on_change_markdown: function (markdown) {
+      var md = window.markdownit();
+      this.html = md.render(markdown);
+      this.$.slide.innerHTML = this.html;
+    }
+
+  });
+</script>

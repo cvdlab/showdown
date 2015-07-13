@@ -1,107 +1,78 @@
+<link rel="import" href="../../components/polymer/polymer.html">
 <link rel="import" href="../x-slide/x-slide.html" />
-<polymer-element name="x-slides" attributes="markdown, current">
+<dom-module id="x-slides">
   <template>
     <style>
       :host {
-        display: block;
+        position: absolute;
         width: 100%;
-        height: 100vh;
+        height: 100%;
         padding: 20px;
       }
-      x-slide {
-        display: none;
-      }
-      x-slide[visible] {
-        display: block;
-      }
     </style>
-      
-    <div id="slides">
-      <template repeat="{{ content, i in contents }}">
-        <x-slide fontsizes="{{ fontsizes }}" markdown="{{ content }}" index="{{ i }}" 
-          visible?="{{ [i, current] | visible }}"></x-slide>
-      </template>
-      <content select="[plugin]"></content>
+
+    <div div="container">
+      <x-slide markdown="{{slide}}"></x-slide>
     </div>
 
   </template>
-  <script>
-    Polymer('x-slides', {
+</dom-module>
+<script>
+  Polymer({
 
-      current: 0,
+    is: 'x-slides',
 
-      delimiter: /- - -|---/gi,
-
-      contents: [],
-
-      fontsize_step: 0.4,
-
-      fontsizes: {
-        body: 4,
-        h1: 8,
-        h2: 7,
-        h3: 5,
-        h4_h5_h6: 4,
-        pre: 3
+    properties: {
+      markdown: {
+        type: String
       },
-
-      ready: function () {
-        var plugins = this.querySelectorAll('[plugin]').array();
-        plugins.forEach(function (plugin) {
-          plugin.slides = this;
-          plugin.container = this.$.slides;
-        }, this);
+      delimiter: {
+        type: String,
+        value: /- - -|---/gi
       },
-
-      markdownChanged: function () {
-        this.contents = this.markdown.split(this.delimiter);
-        this.n = this.contents.length;
+      slides: {
+        type: Array,
+        notify: true
       },
-
-      visible: function (params) {
-        var n = this.n;
-        var i = params[0];
-        var current = params[1];
-        var test = i == current || (i == n-1 && current >= n);
-        return test;
+      slide: {
+        type: String,
+        notify: true
       },
-
-      goto: function (i) {
-        this.current = i < 0 ? 0 : (i > this.contents.length ? this.contents.length-1 : i);
+      count: {
+        type: Number,
+        notify: true
       },
-
-      goto_prev: function () {
-        this.current = this.current > 0 ? this.current-1 : this.contents.length-1;
+      current: {
+        type: Number,
+        notify: true
       },
-
-      goto_next: function () {
-        this.current = this.current < this.contents.length-1 ? this.current+1 : 0;
-      },
-
-      goto_first: function () {
-        this.current = 0;
-      },
-
-      goto_last: function () {
-        this.current = this.contents.length-1;
-      },
-
-      decrease_fontsize: function () {
-        var fontsizes = this.fontsizes;
-        var key;
-        for (key in fontsizes) {
-          fontsizes[key] -= this.fontsize_step;
-        }
+      selected: {
+        type: Number,
+        value: 0
       }
-      ,
-      increase_fontsize: function () {
-        var fontsizes = this.fontsizes;
-        var key;
-        for (key in fontsizes) {
-          fontsizes[key] += this.fontsize_step;
-        }
-      }
+    },
 
-    });
-  </script>
-</polymer-element>
+    observers: [
+      'on_change_markdown(markdown, delimiter)',
+      'on_change_selected(selected)',
+      'on_change_current(current)'
+    ],
+
+    on_change_markdown: function (markdown, delimiter) {
+      this.slides = markdown.split(delimiter);
+      this.count = this.slides.length;
+      this.selected = 0;
+      this.current = 0;
+      console.log(this.selected, this.current, this.count);
+    },
+
+    on_change_selected: function (selected) {
+      this.current = selected < 0 ? 0 : (selected > this.count ? this.count-1 : selected);
+    },
+
+    on_change_current: function (current) {
+      this.slide = this.slides[current];
+    }
+
+  });
+</script>

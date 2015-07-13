@@ -1,0 +1,46 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<link rel="import" href="../../components/iron-ajax/iron-ajax.html">
+<dom-module id="x-github">
+  <template>
+
+    <iron-ajax auto
+      url="{{url}}"
+      handle-as="text"
+      last-response="{{markdown}}"
+      last-error="{{error}}">
+    </iron-ajax>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+
+    is: 'x-github',
+
+    properties: {
+      source: {
+        type: String
+      },
+      url: {
+        type: String,
+      },
+      markdown: {
+        type: String,
+        notify: true
+      },
+      error: {
+        type: Object,
+        notify: true
+      }
+    },
+
+    observers: [
+      'on_change_source(source)'
+    ],
+
+    on_change_source: function (url) {
+      this.url = url.replace('github.com/', 'rawgit.com/').replace('/blob/', '/');
+    }
+
+  });
+</script>

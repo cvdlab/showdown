@@ -1,38 +1,51 @@
-<polymer-element name="x-counter">
+<link rel="import" href="../../components/polymer/polymer.html">
+<dom-module id="x-counter">
+  <style>
+    :host {
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+
+    .counter .separator:before {
+      content: '/';
+    }
+  </style>
   <template>
-    <style>
-      :host {
-        display: block;
-      }
 
-      #counter {
-        padding: 20px 0px;
-        text-align: center;
-        width: 60px;
-        height: 60px;
-        background-color: rgba(255,255,255,1);
-        text-transform: uppercase;
-        font-weight: 600;
-        font-size: 2vh;
-        cursor: pointer;
-        color: #555;
-      }
-
-      .control.separator:before {
-        content: '/';
-      }
-    </style>
-
-    <div id="counter">
-      <span class="control current">{{ slides.current + 1}}</span>
-      <span class="control separator"></span>
-      <span class="control total">{{ slides.contents.length }}</span>
+    <div class="counter">
+      <span class="current">{{value}}</span>
+      <span class="separator"></span>
+      <span class="count">{{count}}</span>
     </div>
 
   </template>
-  <script>
-    Polymer('x-counter', {
+</dom-module>
+<script>
+  Polymer({
 
-    });
-  </script>
-</polymer-element>
+    is: 'x-counter',
+
+    properties: {
+      count: {
+        type: Number
+      },
+      current: {
+        type: Number
+      },
+      value: {
+        type: Number
+      }
+    },
+
+    observers: [
+      'on_change_current(current)'
+    ],
+
+    on_change_current: function (current) {
+      this.value = current+1;
+    }
+
+  });
+</script>
