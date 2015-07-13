@@ -1,0 +1,40 @@
+<link rel="import" href="../../components/polymer/polymer.html">
+<script>
+  Polymer({
+
+    is: 'x-pager',
+
+    properties: {
+      current: {
+        type: Number,
+        notify: true
+      },
+      slides: {
+        type: Array
+      }
+    },
+
+    observers: [
+      'on_change_slides(slides)',
+      'on_change_current(current)'
+    ],
+
+    ready: function () {
+      window.addEventListener("hashchange", this.on_change_hash.bind(this));
+      this.current = +location.hash.slice(1) || 1;
+    },
+
+    on_change_slides: function () {
+      console.log(this.current)
+    },
+
+    on_change_hash: function (event) {
+      this.current = +location.hash.slice(1);
+    },
+
+    on_change_current: function (current) {
+      location.hash = current;
+    }
+
+  });
+</script>

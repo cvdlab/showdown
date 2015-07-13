@@ -9,6 +9,7 @@
   <link rel="import" href="elements/x-controls/x-controls.html">
   <link rel="import" href="elements/x-counter/x-counter.html">
   <link rel="import" href="elements/x-keys/x-keys.html">
+  <link rel="import" href="elements/x-pager/x-pager.html">
   <link rel="import" href="elements/x-github/x-github.html">
 </head>
 <body>
@@ -16,15 +17,17 @@
   <template id="template" is="dom-bind">
     <x-github source="{{source}}" markdown="{{markdown}}"></x-github>
 
-    <x-slides markdown="{{markdown}}" count="{{count}}"
-      selected="{{selected}}" current="{{current}}">
+    <x-slides markdown="{{markdown}}"
+      count="{{count}}" current="{{current}}" selected="{{selected}}">
     </x-slides>
 
-    <x-controls count="{{count}}" selected="{{selected}}"></x-controls>
+    <x-pager current="{{current}}" selected="{{selected}}"></x-pager>
 
     <x-counter count="{{count}}" current="{{current}}"></x-counter>
 
-    <x-keys count="{{count}}" selected="{{selected}}" current="{{current}}"></x-keys>
+    <x-controls count="{{count}}" current="{{current}}" selected="{{selected}}"></x-controls>
+
+    <x-keys count="{{count}}" current="{{current}}" selected="{{selected}}"></x-keys>
   </template>
 
   <script>

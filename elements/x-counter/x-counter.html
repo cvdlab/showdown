@@ -15,7 +15,7 @@
   <template>
 
     <div class="counter">
-      <span class="current">{{value}}</span>
+      <span class="current">{{current}}</span>
       <span class="separator"></span>
       <span class="count">{{count}}</span>
     </div>
@@ -33,18 +33,7 @@
       },
       current: {
         type: Number
-      },
-      value: {
-        type: Number
       }
-    },
-
-    observers: [
-      'on_change_current(current)'
-    ],
-
-    on_change_current: function (current) {
-      this.value = current+1;
     }
 
   });

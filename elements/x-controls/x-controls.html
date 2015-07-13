@@ -15,10 +15,10 @@
   <template>
 
     <div class="controls">
-      <a class="control" on-click="goto_first">&lt;&lt;</a>
-      <a class="control" on-click="goto_prev">&lt;</a>
-      <a class="control" on-click="goto_next">&gt;</a>
-      <a class="control" on-click="goto_last">&gt;&gt;</a>
+      <button on-click="goto_first">&lt;&lt;</button>
+      <button on-click="goto_prev">&lt;</button>
+      <button on-click="goto_next">&gt;</button>
+      <button on-click="goto_last">&gt;&gt;</button>
     </div>
 
   </template>
@@ -33,9 +33,6 @@
         type: Number
       },
       current: {
-        type: Number
-      },
-      selected: {
         type: Number,
         notify: true
       }
@@ -46,19 +43,19 @@
     },
 
     goto_prev: function () {
-      this.selected = this.current > 0 ? this.current-1 : this.count-1;
+      this.current = this.current > 1 ? this.current-1 : 1;
     },
 
     goto_next: function () {
-      this.selected = this.current < this.count-1 ? this.current+1 : 0;
+      this.current = this.current < this.count ? this.current+1 : this.count;
     },
 
     goto_first: function () {
-      this.selected = 0;
+      this.current = 1;
     },
 
     goto_last: function () {
-      this.selected = this.count-1;
+      this.current = this.count;
     }
 
   });

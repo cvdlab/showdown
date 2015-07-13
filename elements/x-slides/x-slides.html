@@ -44,34 +44,33 @@
       },
       current: {
         type: Number,
-        notify: true
+        notify: true,
+        value: 1
       },
       selected: {
-        type: Number,
-        value: 0
+        type: Number
       }
     },
 
     observers: [
       'on_change_markdown(markdown, delimiter)',
-      'on_change_selected(selected)',
-      'on_change_current(current)'
+      'on_change_current(current, slides)'
     ],
 
     on_change_markdown: function (markdown, delimiter) {
       this.slides = markdown.split(delimiter);
       this.count = this.slides.length;
-      this.selected = 0;
-      this.current = 0;
-      console.log(this.selected, this.current, this.count);
+      // console.log(this.count);
     },
 
-    on_change_selected: function (selected) {
-      this.current = selected < 0 ? 0 : (selected > this.count ? this.count-1 : selected);
-    },
-
-    on_change_current: function (current) {
-      this.slide = this.slides[current];
+    on_change_current: function (current, slides) {
+      if (current < 1) {
+        current = this.count;
+      }
+      if (current > this.count) {
+        current = 1;
+      }
+      this.slide = this.slides[current - 1];
     }
 
   });
