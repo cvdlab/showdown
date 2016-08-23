@@ -1,74 +1,214 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<link rel="import" href="../x-slide/x-slide.html" />
-<dom-module id="x-slides">
-  <template>
-    <style>
-      :host {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-      }
-    </style>
+<link rel="import" href="../x-slide/x-slide.html">
 
-    <div div="container">
-      <x-slide markdown="{{slide}}"></x-slide>
+<template is="x-slides">
+  <style>
+    :host {
+      position: absolute;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    #container {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      background-color: #efefef;
+    }
+
+    .box {
+      border: none;
+      background: transparent;
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin-top: 0 auto;
+    }
+    .counter {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+    .control.box:hover {
+      cursor: pointer;
+    }
+    .counter.box {
+      padding-top: 15px;
+    }
+    .key {
+      position: absolute;
+      z-index: -1;
+      width: 0px;
+      height: 0px;
+      overflow: hidden;
+    }
+  </style>
+
+  <div id="container" ref="container" on-click="on_click">
+
+    <template ref="slides" is="repeat" items="{{texts}}" item="text">
+      <x-slide markdown="{{text}}" index="index" current="{{current}}" count="{{count}}"></x-slide>
+    </template>
+
+    <div class="counter box">
+      <span class="current">{{current}}</span>
+      <span class="separator">/</span>
+      <span class="count">{{count}}</span>
     </div>
 
-  </template>
-</dom-module>
+    <div class="controls">
+      <button class="control box" on-click="goto_first">◀◀</button>
+      <button class="control box" on-click="goto_prev">◀</button>
+      <button class="control box" on-click="goto_next">▶</button>
+      <button class="control box" on-click="goto_last">▶▶</button>
+    </div>
+
+    <div class="key">
+      <input ref="key" type="text" on-keydown="on_keydown" />
+    </div>
+  </div>
+
+</template>
+
 <script>
-  Polymer({
+  Pantarei({
 
     is: 'x-slides',
 
     properties: {
+      src: {
+        type: String,
+        value: ''
+      },
       markdown: {
-        type: String
+        type: String,
+        value: ''
+      },
+      current: {
+        type: Number,
+        value: 1
       },
       delimiter: {
         type: String,
         value: /- - -|---/gi
-      },
-      slides: {
-        type: Array,
-        notify: true
-      },
-      slide: {
-        type: String,
-        notify: true
-      },
-      count: {
-        type: Number,
-        notify: true
-      },
-      current: {
-        type: Number,
-        notify: true,
-        value: 1
       }
     },
 
-    observers: [
-      'on_change_markdown(markdown, delimiter)',
-      'on_change_current(current, slides)'
-    ],
-
-    on_change_markdown: function (markdown, delimiter) {
-      this.slides = markdown.split(delimiter);
-      this.count = this.slides.length;
-      // console.log(this.count);
+    before_create: function () {
+      window.addEventListener('hashchange', this.on_change_hash.bind(this));
+      this.current = +location.hash.slice(1) || 1;
     },
 
-    on_change_current: function (current, slides) {
+    after_attach: function () {
+      this.update()
+    },
+
+    before_update: function () {
+      if (this.src !== this._src) {
+        this.download_markdown(this.src)
+        return
+      }
+      if (this.markdown !== this._markdown) {
+        this.update_slides()
+      }
+      this.refs.key.focus()
+    },
+
+    after_update: function () {
+      this.update_current(this.current)
+      this.refs.key.focus()
+    },
+
+    on_click: function () {
+      console.log('click')
+      this.refs.key.focus()
+    },
+
+    on_change_hash: function () {
+      var current = +location.hash.slice(1);
       if (current < 1) {
-        current = this.count;
+        current = 1;
+        history.replaceState('', '', '#1');
       }
       if (current > this.count) {
-        current = 1;
+        current = this.count;
+        history.replaceState('', '', '#' + current);
       }
-      this.slide = this.slides[current - 1];
+      this.update_current(current);
+    },
+
+    on_keydown: function (event) {
+      if (event.keyCode === 37 || event.keyCode === 38) {
+        this.goto_prev()
+      }
+      if (event.keyCode === 39 || event.keyCode === 40) {
+        this.goto_next()
+      }
+    },
+
+    update_slides: function () {
+      this.texts = this.markdown.split(this.delimiter)
+      this.count = this.texts.length
+      this.last = this.count-1
+      this.current = 1
+      this._markdown = this.markdown
+    },
+
+    goto_prev: function () {
+      this.current = this.current > 1 ? this.current-1 : 1;
+      this.update_current(this.current)
+    },
+
+    goto_next: function () {
+      this.current = this.current < this.count ? this.current+1 : this.count;
+      this.update_current(this.current)
+    },
+
+    goto_first: function () {
+      this.current = 1;
+      this.update_current(this.current)
+    },
+
+    goto_last: function () {
+      this.current = this.count;
+      this.update_current(this.current)
+    },
+
+    update_current: function (current) {
+      this.current = current
+      var nodes = this.refs.slides.p.clones
+      nodes.forEach(function (node, index) {
+        node.style.display = (index+1 == current) ? 'block' : 'none'
+      })
+      history.replaceState('', '', '#' + current);
+      this.refs.key.focus()
+    },
+
+    download_markdown: function (src) {
+      if (!src) {
+        return
+      }
+      this.url = src.replace('github.com/', 'rawgit.com/').replace('/blob/', '/')
+      this._src = src
+
+      fetch(this.url)
+        .then(response => {
+          return response.text()
+        })
+        .then(text => {
+          this.markdown = text
+          this.update()
+        })
     }
 
-  });
+  })
 </script>

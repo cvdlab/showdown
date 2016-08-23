@@ -1,46 +1,58 @@
-<link rel="import" href="../../components/polymer/polymer.html">
-<dom-module id="x-slide">
+<template is="x-slide">
   <style>
     :host {
       display: block;
       width: 100%;
       height: 100%;
+      font-family: sans-serif;
+      box-sizing: border-box;
+      overflow: scroll;
     }
 
-    #slide {
-      @apply(--layout-fit);
+    #container {
+      padding: 10px;
     }
   </style>
-  <template>
 
-    <div id="slide"></div>
+  <div id="container" ref="container"></div>
 
-  </template>
-</dom-module>
-<script src="../../components/markdown-it/dist/markdown-it.js"></script>
+</template>
+
+<script src="../showdown/showdown.min.js"></script>
 <script>
-  Polymer({
+  Pantarei({
 
     is: 'x-slide',
 
     properies: {
       markdown: {
-        type: String
-      },
-      html: {
-        type: String
+        type: String,
+        value: ''
       }
     },
 
-    observers: [
-      'on_change_markdown(markdown)'
-    ],
+    after_create: function () {
+      this.converter = new showdown.Converter({
+        omitExtraWLInCodeBlocks: true,
+        noHeaderId: true
+      })
+    },
 
-    on_change_markdown: function (markdown) {
-      var md = window.markdownit();
-      this.html = md.render(markdown);
-      this.$.slide.innerHTML = this.html;
+    before_update: function () {
+      if (this.markdown !== this._markdown) {
+        this.update_html()
+      }
+    },
+
+    toggle: function (visible) {
+      this.style.display = visible ? 'block' : 'none'
+    },
+
+    update_html: function () {
+      this.html = this.converter.makeHtml(this.markdown)
+      this.refs.container.innerHTML = this.html
+      this._markdown = this.markdown
     }
 
-  });
+  })
 </script>

@@ -1,6 +1,7 @@
 <!DOCTYPE html><html><head>
   <meta charset="utf-8">
   <title>SHOWDOWN</title>
+<<<<<<< HEAD
   <script>/**
  * @license
  * Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
@@ -14414,6 +14415,17 @@ if (!window.Promise) {
 
   });
 </script>
+=======
+  <link rel="import" href="elements/pantarei/pantarei.html">
+  <link rel="import" href="elements/x-slides/x-slides.html">
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+  </style>
+>>>>>>> master
 </head>
 <body><div hidden="" by-vulcanize=""><dom-module id="x-slide" assetpath="elements/x-slide/">
   <style>
@@ -22098,23 +22110,13 @@ module.exports = require('./lib/');
   });
 </script></div>
 
-  <template id="template" is="dom-bind">
-    <x-github source="{{source}}" markdown="{{md}}"></x-github>
-
-    <x-slides markdown="{{md}}" count="{{count}}" current="{{current}}"></x-slides>
-
-    <x-pager count="{{count}}" current="{{current}}"></x-pager>
-
-    <x-counter count="{{count}}" current="{{current}}"></x-counter>
-
-    <x-controls count="{{count}}" current="{{current}}"></x-controls>
-
-    <x-keys count="{{count}}" current="{{current}}"></x-keys>
-  </template>
+  <x-slides></x-slides>
 
   <script>
-    var template = document.getElementById('template');
-    template.source = 'https://github.com/cvdlab/showdown/blob/master/README.md';
+     var slides = document.querySelector('x-slides')
+     var src = location.search.slice(1) || "https://github.com/cvdlab/showdown/blob/master/README.md"
+     slides.src = src
+     slides.update()
   </script>
 
 </body></html>
